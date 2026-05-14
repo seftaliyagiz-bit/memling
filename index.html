@@ -1,0 +1,1044 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>De Leuvense Memling — Café · Brasserie · Leuven</title>
+  <meta name="description" content="De Leuvense Memling — Een warm en gezellig café in het hart van Leuven op de Diestsestraat. Wafels, pannenkoeken, broodjes, koffie. Elke dag open 10:00–22:00." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <style>
+    :root {
+      --cream: #faf7f0;
+      --burgundy: #7a1f2e;
+      --burgundy-dark: #5c1622;
+      --gold: #b8962e;
+      --gold-light: #d4aa48;
+      --sage: #5a7a5a;
+      --sage-dark: #4a6a4a;
+      --charcoal: #1a1a1a;
+      --white: #ffffff;
+      --brown: #1e100a;
+      --brown-light: #2c1810;
+      --card-shadow: 0 4px 24px rgba(122,31,46,0.10);
+      --card-shadow-hover: 0 8px 40px rgba(122,31,46,0.18);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 300;
+      background: var(--cream);
+      color: var(--charcoal);
+      line-height: 1.7;
+    }
+
+    /* ── NAVBAR ── */
+    #navbar {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 1000;
+      background: var(--cream);
+      padding: 0 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 72px;
+      transition: box-shadow 0.3s;
+    }
+    #navbar.scrolled {
+      box-shadow: 0 2px 20px rgba(122,31,46,0.14);
+    }
+    .nav-logo {
+      display: flex;
+      flex-direction: column;
+      line-height: 1.1;
+      text-decoration: none;
+    }
+    .nav-logo-top {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: 0.78rem;
+      color: var(--gold);
+      letter-spacing: 0.04em;
+    }
+    .nav-logo-main {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.55rem;
+      font-weight: 700;
+      color: var(--burgundy);
+      letter-spacing: -0.01em;
+      line-height: 1;
+    }
+    .nav-logo-sub {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.65rem;
+      font-weight: 300;
+      color: var(--gold);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-top: 1px;
+    }
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+    }
+    .nav-links {
+      display: flex;
+      gap: 1.8rem;
+      list-style: none;
+    }
+    .nav-links a {
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 400;
+      color: var(--charcoal);
+      letter-spacing: 0.04em;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--burgundy); }
+    .lang-toggle {
+      display: flex;
+      align-items: center;
+      gap: 0;
+      border: 1.5px solid var(--burgundy);
+      border-radius: 6px;
+      overflow: hidden;
+      font-size: 0.8rem;
+      font-weight: 500;
+    }
+    .lang-btn {
+      padding: 4px 10px;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      color: var(--burgundy);
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 500;
+      font-size: 0.8rem;
+      letter-spacing: 0.05em;
+      transition: background 0.2s, color 0.2s;
+    }
+    .lang-btn.active {
+      background: var(--burgundy);
+      color: var(--cream);
+    }
+    .lang-btn:hover:not(.active) { background: rgba(122,31,46,0.08); }
+    .lang-divider {
+      width: 1px;
+      height: 24px;
+      background: var(--burgundy);
+    }
+
+    /* ── HERO ── */
+    #hero {
+      height: 100vh;
+      min-height: 600px;
+      background-image: url('https://images.unsplash.com/photo-1445116572660-236099ec97a0?w=1600');
+      background-size: cover;
+      background-position: center;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(122,31,46,0.55);
+    }
+    .hero-border {
+      position: absolute;
+      inset: 24px;
+      pointer-events: none;
+      border: 1.5px solid rgba(184,150,46,0.55);
+      box-shadow: inset 0 0 0 5px transparent, inset 0 0 0 7px rgba(184,150,46,0.22);
+    }
+    .hero-border::before {
+      content: '';
+      position: absolute;
+      inset: 5px;
+      border: 1px solid rgba(184,150,46,0.32);
+    }
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: 780px;
+      padding: 0 2rem;
+    }
+    .hero-location {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.78rem;
+      font-weight: 300;
+      color: rgba(250,247,240,0.75);
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      margin-bottom: 1.2rem;
+    }
+    .hero-title {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: clamp(2.8rem, 7vw, 5rem);
+      font-weight: 700;
+      color: var(--cream);
+      line-height: 1.05;
+      margin-bottom: 1rem;
+      text-shadow: 0 2px 20px rgba(0,0,0,0.3);
+    }
+    .hero-sub {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: clamp(0.95rem, 2vw, 1.12rem);
+      color: var(--gold-light);
+      margin-bottom: 2rem;
+      line-height: 1.6;
+      max-width: 580px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .hero-icons {
+      display: flex;
+      justify-content: center;
+      gap: 1.8rem;
+      margin-bottom: 2rem;
+      flex-wrap: wrap;
+    }
+    .hero-icon-item {
+      font-size: 0.82rem;
+      color: rgba(250,247,240,0.85);
+      letter-spacing: 0.04em;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+    .hero-icon-item span:first-child { font-size: 1.1rem; }
+    .hero-cta {
+      display: inline-block;
+      background: var(--burgundy);
+      color: var(--cream);
+      text-decoration: none;
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 500;
+      font-size: 0.95rem;
+      letter-spacing: 0.06em;
+      padding: 14px 36px;
+      border-radius: 8px;
+      border: 2px solid transparent;
+      transition: background 0.25s, border-color 0.25s, transform 0.18s;
+      margin-bottom: 2rem;
+    }
+    .hero-cta:hover {
+      background: var(--burgundy-dark);
+      transform: translateY(-2px);
+    }
+    .hero-open {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.55rem;
+      font-size: 0.82rem;
+      color: rgba(250,247,240,0.8);
+      letter-spacing: 0.05em;
+    }
+    .pulse-dot {
+      width: 8px; height: 8px;
+      background: #4ade80;
+      border-radius: 50%;
+      flex-shrink: 0;
+      animation: pulse 2s ease-in-out infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.55; transform: scale(1.35); }
+    }
+
+    /* ── HERITAGE BANNER ── */
+    #heritage {
+      background: var(--burgundy);
+      padding: 2rem 2rem;
+      text-align: center;
+    }
+    .heritage-inner {
+      max-width: 800px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      gap: 1.2rem;
+    }
+    .heritage-line {
+      flex: 1;
+      height: 1.5px;
+      background: linear-gradient(to right, transparent, var(--gold), transparent);
+    }
+    .heritage-text {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: clamp(0.88rem, 2vw, 1.02rem);
+      color: var(--cream);
+      line-height: 1.7;
+      text-align: center;
+      flex-shrink: 0;
+      max-width: 560px;
+    }
+
+    /* ── SECTION SHARED ── */
+    section { overflow: hidden; }
+
+    .section-label {
+      font-size: 0.7rem;
+      font-weight: 500;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--burgundy);
+      margin-bottom: 0.6rem;
+    }
+    .section-heading {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: clamp(1.9rem, 4vw, 2.6rem);
+      color: var(--burgundy);
+      line-height: 1.15;
+      margin-bottom: 0.4rem;
+    }
+    .section-sub {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      color: var(--gold);
+      font-size: 1rem;
+      margin-bottom: 2.5rem;
+    }
+
+    /* ── MENU HIGHLIGHTS ── */
+    #menu {
+      background: var(--cream);
+      padding: 80px 2rem;
+      text-align: center;
+    }
+    .menu-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.6rem;
+      max-width: 1040px;
+      margin: 0 auto;
+    }
+    .menu-card {
+      background: var(--white);
+      border: 2px solid var(--burgundy);
+      border-radius: 12px;
+      padding: 2rem 1.6rem;
+      text-align: left;
+      box-shadow: var(--card-shadow);
+      transition: transform 0.25s, box-shadow 0.25s;
+    }
+    .menu-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--card-shadow-hover);
+    }
+    .menu-card-icon {
+      font-size: 2rem;
+      margin-bottom: 0.8rem;
+      display: block;
+    }
+    .menu-card-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.18rem;
+      font-weight: 600;
+      color: var(--burgundy);
+      margin-bottom: 0.6rem;
+    }
+    .menu-card-desc {
+      font-size: 0.88rem;
+      color: #444;
+      line-height: 1.65;
+    }
+
+    /* ── ABOUT ── */
+    #about {
+      background: var(--white);
+      padding: 80px 2rem;
+    }
+    .about-inner {
+      max-width: 1040px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3.5rem;
+      align-items: center;
+    }
+    .about-img-wrap {
+      position: relative;
+    }
+    .about-img-wrap img {
+      width: 100%;
+      border-radius: 12px;
+      display: block;
+      object-fit: cover;
+      height: 440px;
+    }
+    .about-img-frame {
+      position: absolute;
+      inset: -10px;
+      border: 2px solid var(--burgundy);
+      border-radius: 14px;
+      pointer-events: none;
+      z-index: 0;
+    }
+    .about-img-wrap > img { position: relative; z-index: 1; }
+    .about-heading {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: clamp(1.7rem, 3.5vw, 2.2rem);
+      color: var(--burgundy);
+      line-height: 1.2;
+      margin-bottom: 0.5rem;
+    }
+    .about-italic {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      color: var(--gold);
+      font-size: 1rem;
+      margin-bottom: 1.2rem;
+      display: block;
+    }
+    .about-body {
+      font-size: 0.92rem;
+      line-height: 1.75;
+      color: #3a3a3a;
+      margin-bottom: 2rem;
+    }
+    .about-stats {
+      display: flex;
+      gap: 1.4rem;
+      flex-wrap: wrap;
+    }
+    .about-stat {
+      background: var(--cream);
+      border: 1.5px solid var(--burgundy);
+      border-radius: 10px;
+      padding: 0.6rem 1rem;
+      font-size: 0.8rem;
+      font-weight: 500;
+      color: var(--burgundy);
+      letter-spacing: 0.03em;
+    }
+
+    /* ── ACCESSIBILITY ── */
+    #accessibility {
+      background: var(--sage);
+      padding: 70px 2rem;
+      text-align: center;
+    }
+    #accessibility .section-label { color: rgba(250,247,240,0.75); }
+    #accessibility .section-heading { color: var(--cream); }
+    .access-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.6rem;
+      max-width: 860px;
+      margin: 0 auto;
+    }
+    .access-card {
+      background: rgba(255,255,255,0.12);
+      border: 1.5px solid rgba(250,247,240,0.25);
+      border-radius: 12px;
+      padding: 1.8rem 1.4rem;
+      text-align: center;
+      backdrop-filter: blur(4px);
+      transition: background 0.25s, transform 0.25s;
+    }
+    .access-card:hover {
+      background: rgba(255,255,255,0.2);
+      transform: translateY(-3px);
+    }
+    .access-icon {
+      font-size: 2rem;
+      margin-bottom: 0.7rem;
+      display: block;
+    }
+    .access-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--cream);
+      margin-bottom: 0.4rem;
+    }
+    .access-desc {
+      font-size: 0.82rem;
+      color: rgba(250,247,240,0.82);
+      line-height: 1.55;
+    }
+
+    /* ── REVIEWS ── */
+    #reviews {
+      background: var(--cream);
+      padding: 80px 2rem;
+      text-align: center;
+    }
+    .reviews-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.6rem;
+      max-width: 1040px;
+      margin: 0 auto;
+    }
+    .review-card {
+      background: var(--white);
+      border-radius: 12px;
+      padding: 1.8rem 1.6rem;
+      text-align: left;
+      box-shadow: var(--card-shadow);
+      transition: transform 0.25s, box-shadow 0.25s;
+      display: flex;
+      flex-direction: column;
+      gap: 0.8rem;
+    }
+    .review-card:hover {
+      transform: translateY(-3px);
+      box-shadow: var(--card-shadow-hover);
+    }
+    .review-stars { color: var(--gold); font-size: 1rem; letter-spacing: 2px; }
+    .review-text {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: 0.93rem;
+      color: #333;
+      line-height: 1.65;
+      flex: 1;
+    }
+    .review-source {
+      font-size: 0.75rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      color: var(--burgundy);
+      text-transform: uppercase;
+    }
+
+    /* ── CONTACT ── */
+    #contact {
+      background: var(--brown);
+      padding: 80px 2rem;
+    }
+    .contact-inner {
+      max-width: 1040px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+    }
+    .contact-label {
+      font-size: 0.7rem;
+      font-weight: 500;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 1rem;
+    }
+    .contact-heading {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: clamp(1.6rem, 3vw, 2.1rem);
+      color: var(--cream);
+      margin-bottom: 1.6rem;
+    }
+    .contact-info-list {
+      list-style: none;
+      margin-bottom: 1.8rem;
+    }
+    .contact-info-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.75rem;
+      font-size: 0.9rem;
+      color: rgba(250,247,240,0.85);
+      margin-bottom: 0.75rem;
+      line-height: 1.5;
+    }
+    .contact-info-list .ci-icon {
+      color: var(--gold);
+      font-size: 0.95rem;
+      margin-top: 2px;
+      flex-shrink: 0;
+    }
+    .map-wrap {
+      border-radius: 12px;
+      overflow: hidden;
+      margin-top: 0.5rem;
+      border: 1.5px solid rgba(184,150,46,0.3);
+    }
+    .map-wrap iframe { display: block; }
+
+    /* contact form */
+    .contact-form-heading {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: 1.5rem;
+      color: var(--cream);
+      margin-bottom: 1.4rem;
+    }
+    .form-group { margin-bottom: 1rem; }
+    .form-group label {
+      display: block;
+      font-size: 0.8rem;
+      color: rgba(250,247,240,0.7);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      margin-bottom: 0.35rem;
+    }
+    .form-group input,
+    .form-group textarea {
+      width: 100%;
+      background: rgba(255,255,255,0.07);
+      border: 1.5px solid rgba(184,150,46,0.3);
+      border-radius: 8px;
+      padding: 10px 14px;
+      color: var(--cream);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 300;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    .form-group input:focus,
+    .form-group textarea:focus { border-color: var(--gold); }
+    .form-group textarea { resize: vertical; min-height: 110px; }
+    .form-group input::placeholder,
+    .form-group textarea::placeholder { color: rgba(250,247,240,0.35); }
+    .form-submit {
+      background: var(--burgundy);
+      color: var(--cream);
+      border: none;
+      border-radius: 8px;
+      padding: 12px 28px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.92rem;
+      font-weight: 500;
+      cursor: pointer;
+      letter-spacing: 0.05em;
+      transition: background 0.2s, transform 0.18s;
+    }
+    .form-submit:hover { background: var(--burgundy-dark); transform: translateY(-1px); }
+    .form-success {
+      display: none;
+      background: rgba(90,122,90,0.25);
+      border: 1.5px solid var(--sage);
+      border-radius: 8px;
+      padding: 12px 16px;
+      color: #a8d8a8;
+      font-size: 0.88rem;
+      margin-top: 1rem;
+    }
+
+    /* ── FOOTER ── */
+    #footer {
+      background: var(--brown);
+      border-top: 1px solid rgba(184,150,46,0.2);
+      padding: 2rem 2rem;
+    }
+    .footer-inner {
+      max-width: 1040px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      align-items: center;
+      gap: 1rem;
+    }
+    .footer-brand {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: 1.2rem;
+      color: var(--gold);
+      font-weight: 600;
+      margin-bottom: 0.2rem;
+    }
+    .footer-brand-sub {
+      font-size: 0.75rem;
+      color: rgba(250,247,240,0.5);
+      letter-spacing: 0.04em;
+    }
+    .footer-center {
+      text-align: center;
+      font-size: 0.75rem;
+      color: rgba(250,247,240,0.45);
+      letter-spacing: 0.05em;
+    }
+    .footer-links {
+      text-align: right;
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+      align-items: flex-end;
+    }
+    .footer-links a {
+      color: var(--gold);
+      text-decoration: none;
+      font-size: 0.8rem;
+      font-weight: 400;
+      letter-spacing: 0.04em;
+      transition: color 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+    .footer-links a:hover { color: var(--gold-light); }
+
+    /* ── ANIMATIONS ── */
+    .fade-up {
+      opacity: 0;
+      transform: translateY(32px);
+      transition: opacity 0.65s ease, transform 0.65s ease;
+    }
+    .fade-up.visible {
+      opacity: 1;
+      transform: none;
+    }
+    .fade-up:nth-child(1) { transition-delay: 0.0s; }
+    .fade-up:nth-child(2) { transition-delay: 0.1s; }
+    .fade-up:nth-child(3) { transition-delay: 0.2s; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 768px) {
+      #navbar { padding: 0 1.2rem; height: 64px; }
+      .nav-links { display: none; }
+      .hero-border { inset: 14px; }
+      .menu-grid,
+      .access-grid,
+      .reviews-grid { grid-template-columns: 1fr; }
+      .about-inner { grid-template-columns: 1fr; }
+      .about-img-wrap img { height: 280px; }
+      .about-img-frame { display: none; }
+      .contact-inner { grid-template-columns: 1fr; }
+      .footer-inner { grid-template-columns: 1fr; text-align: center; }
+      .footer-links { align-items: center; }
+      .heritage-inner { flex-direction: column; gap: 0.6rem; }
+      .heritage-line { width: 60px; height: 1.5px; flex: none; }
+    }
+    @media (max-width: 480px) {
+      .hero-title { font-size: 2.3rem; }
+      .hero-icons { gap: 0.9rem; }
+      #menu, #about, #accessibility, #reviews, #contact { padding: 56px 1.2rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ── NAVBAR ── -->
+<nav id="navbar" role="navigation" aria-label="Hoofdmenu">
+  <a href="#hero" class="nav-logo" aria-label="De Leuvense Memling — home">
+    <span class="nav-logo-top">De Leuvense</span>
+    <span class="nav-logo-main">Memling</span>
+    <span class="nav-logo-sub">Café · Brasserie · Est. 17e eeuw</span>
+  </a>
+  <div class="nav-right">
+    <ul class="nav-links">
+      <li><a href="#menu" data-nl="Menu" data-en="Menu">Menu</a></li>
+      <li><a href="#about" data-nl="Over ons" data-en="About">Over ons</a></li>
+      <li><a href="#contact" data-nl="Contact" data-en="Contact">Contact</a></li>
+    </ul>
+    <div class="lang-toggle" role="group" aria-label="Taal kiezen">
+      <button class="lang-btn active" id="btn-nl" onclick="setLang('nl')" aria-pressed="true">NL</button>
+      <div class="lang-divider" aria-hidden="true"></div>
+      <button class="lang-btn" id="btn-en" onclick="setLang('en')" aria-pressed="false">EN</button>
+    </div>
+  </div>
+</nav>
+
+<!-- ── HERO ── -->
+<section id="hero" role="banner">
+  <div class="hero-overlay" aria-hidden="true"></div>
+  <div class="hero-border" aria-hidden="true"></div>
+  <div class="hero-content">
+    <p class="hero-location">— Diestsestraat 38 · Leuven · Est. 17e eeuw —</p>
+    <h1 class="hero-title">De Leuvense Memling</h1>
+    <p class="hero-sub" data-nl="Een warm en gezellig café in het hart van Leuven, al eeuwen een vaste waarde op de Diestsestraat" data-en="A warm and cosy café in the heart of Leuven, a fixture on Diestsestraat for centuries">
+      Een warm en gezellig café in het hart van Leuven, al eeuwen een vaste waarde op de Diestsestraat
+    </p>
+    <div class="hero-icons" aria-label="Onze specialiteiten">
+      <div class="hero-icon-item"><span>🧇</span><span data-nl="Wafels" data-en="Waffles">Wafels</span></div>
+      <div class="hero-icon-item"><span>🥞</span><span data-nl="Pannenkoeken" data-en="Pancakes">Pannenkoeken</span></div>
+      <div class="hero-icon-item"><span>☕</span><span data-nl="Koffie" data-en="Coffee">Koffie</span></div>
+      <div class="hero-icon-item"><span>♿</span><span data-nl="Toegankelijk" data-en="Accessible">Toegankelijk</span></div>
+    </div>
+    <a href="#menu" class="hero-cta" data-nl="Bekijk ons menu" data-en="View our menu">Bekijk ons menu</a>
+    <div class="hero-open">
+      <div class="pulse-dot" aria-hidden="true"></div>
+      <span data-nl="Elke dag open · 10:00 – 22:00" data-en="Open every day · 10:00 – 22:00">Elke dag open · 10:00 – 22:00</span>
+    </div>
+  </div>
+</section>
+
+<!-- ── HERITAGE BANNER ── -->
+<div id="heritage" role="note">
+  <div class="heritage-inner">
+    <div class="heritage-line" aria-hidden="true"></div>
+    <p class="heritage-text" data-nl="17e-eeuws pand &nbsp;·&nbsp; Een van de 4 overblijvende horecazaken op de Diestsestraat — waar er ooit bijna honderd waren." data-en="17th century building &nbsp;·&nbsp; One of only 4 remaining hospitality venues on Diestsestraat — where there were once nearly 100.">
+      17e-eeuws pand &nbsp;·&nbsp; Een van de 4 overblijvende horecazaken op de Diestsestraat — waar er ooit bijna honderd waren.
+    </p>
+    <div class="heritage-line" aria-hidden="true"></div>
+  </div>
+</div>
+
+<!-- ── MENU HIGHLIGHTS ── -->
+<section id="menu" aria-labelledby="menu-heading">
+  <p class="section-label" data-nl="Onze specialiteiten" data-en="Our specialities">Onze specialiteiten</p>
+  <h2 class="section-heading" id="menu-heading" data-nl="Onze Kaart" data-en="Our Menu">Onze Kaart</h2>
+  <p class="section-sub" data-nl="Vers, lokaal en met liefde bereid" data-en="Fresh, local and made with love">Vers, lokaal en met liefde bereid</p>
+  <div class="menu-grid">
+    <div class="menu-card fade-up">
+      <span class="menu-card-icon" aria-hidden="true">🧇</span>
+      <h3 class="menu-card-title" data-nl="Wafels &amp; Pannenkoeken" data-en="Waffles &amp; Pancakes">Wafels &amp; Pannenkoeken</h3>
+      <p class="menu-card-desc" data-nl="Onze genereuze wafels en pannenkoeken zijn favoriet bij jong en oud. Perfect voor een zoete pauze tijdens het shoppen." data-en="Our generous waffles and pancakes are a favourite for young and old. Perfect for a sweet break while shopping.">
+        Onze genereuze wafels en pannenkoeken zijn favoriet bij jong en oud. Perfect voor een zoete pauze tijdens het shoppen.
+      </p>
+    </div>
+    <div class="menu-card fade-up">
+      <span class="menu-card-icon" aria-hidden="true">🥪</span>
+      <h3 class="menu-card-title" data-nl="Broodjes &amp; Snacks" data-en="Sandwiches &amp; Snacks">Broodjes &amp; Snacks</h3>
+      <p class="menu-card-desc" data-nl="Verse broodjes, hartige snacks en kleine hapjes — gemaakt met lokale streekproducten." data-en="Fresh sandwiches, savoury snacks and small bites — made with local regional products.">
+        Verse broodjes, hartige snacks en kleine hapjes — gemaakt met lokale streekproducten.
+      </p>
+    </div>
+    <div class="menu-card fade-up">
+      <span class="menu-card-icon" aria-hidden="true">☕</span>
+      <h3 class="menu-card-title" data-nl="Koffie &amp; Dranken" data-en="Coffee &amp; Drinks">Koffie &amp; Dranken</h3>
+      <p class="menu-card-desc" data-nl="Onze signature: koffie met crème brûlée van een erkend koffiebrandersmerk. Ook pasta, soep, bier en wijn." data-en="Our signature: coffee with crème brûlée from a recognised roastery. Also pasta, soup, beer and wine.">
+        Onze signature: koffie met crème brûlée van een erkend koffiebrandersmerk. Ook pasta, soep, bier en wijn.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ── ABOUT / HISTORY ── -->
+<section id="about" aria-labelledby="about-heading">
+  <div class="about-inner">
+    <div class="about-img-wrap fade-up">
+      <div class="about-img-frame" aria-hidden="true"></div>
+      <img
+        src="https://images.unsplash.com/photo-1559339352-11d035aa65de?w=800"
+        alt="Historisch interieur van De Leuvense Memling"
+        loading="lazy"
+        width="520" height="440"
+      />
+    </div>
+    <div class="fade-up">
+      <p class="section-label" data-nl="Ons verhaal" data-en="Our story">Ons verhaal</p>
+      <h2 class="about-heading" id="about-heading" data-nl="Een stukje Leuvense geschiedenis." data-en="A piece of Leuven history.">
+        Een stukje Leuvense geschiedenis.
+      </h2>
+      <span class="about-italic" data-nl="Al eeuwen een vaste waarde in de Diestsestraat." data-en="A fixture on Diestsestraat for centuries.">
+        Al eeuwen een vaste waarde in de Diestsestraat.
+      </span>
+      <p class="about-body" data-nl="De Leuvense Memling is gehuisvest in een 17e-eeuws pand — een van de vier overblijvende horecazaken op de Diestsestraat, waar er ooit bijna honderd waren. We verwelkomen iedereen: van shoppers die even willen pauzeren tot families die genieten van onze wafels en pannenkoeken. Met braillemenu's en volledige rolstoeltoegankelijkheid is iedereen welkom bij ons." data-en="De Leuvense Memling is housed in a 17th century building — one of only four remaining hospitality venues on Diestsestraat, where there were once nearly a hundred. We welcome everyone: from shoppers taking a break to families enjoying our waffles and pancakes. With Braille menus and full wheelchair accessibility, everyone is welcome.">
+        De Leuvense Memling is gehuisvest in een 17e-eeuws pand — een van de vier overblijvende horecazaken op de Diestsestraat, waar er ooit bijna honderd waren. We verwelkomen iedereen: van shoppers die even willen pauzeren tot families die genieten van onze wafels en pannenkoeken. Met braillemenu's en volledige rolstoeltoegankelijkheid is iedereen welkom bij ons.
+      </p>
+      <div class="about-stats" role="list">
+        <div class="about-stat" role="listitem">4.1★ Google</div>
+        <div class="about-stat" role="listitem" data-nl="17e-eeuws pand" data-en="17th c. building">17e-eeuws pand</div>
+        <div class="about-stat" role="listitem" data-nl="Elke dag open" data-en="Open every day">Elke dag open</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── ACCESSIBILITY ── -->
+<section id="accessibility" aria-labelledby="access-heading">
+  <p class="section-label" data-nl="Inclusief &amp; verwelkomend" data-en="Inclusive &amp; welcoming">Inclusief &amp; verwelkomend</p>
+  <h2 class="section-heading" id="access-heading" data-nl="Voor iedereen toegankelijk" data-en="Accessible for everyone">Voor iedereen toegankelijk</h2>
+  <div class="access-grid" style="margin-top:2rem;">
+    <div class="access-card fade-up">
+      <span class="access-icon" aria-hidden="true">♿</span>
+      <h3 class="access-title" data-nl="Rolstoelvriendelijk" data-en="Wheelchair accessible">Rolstoelvriendelijk</h3>
+      <p class="access-desc" data-nl="Volledig toegankelijk voor rolstoelgebruikers" data-en="Fully accessible for wheelchair users">
+        Volledig toegankelijk voor rolstoelgebruikers
+      </p>
+    </div>
+    <div class="access-card fade-up">
+      <span class="access-icon" aria-hidden="true">👁️</span>
+      <h3 class="access-title" data-nl="Braillemenu" data-en="Braille menu">Braillemenu</h3>
+      <p class="access-desc" data-nl="Menu's beschikbaar in brailleschrift" data-en="Menus available in Braille">
+        Menu's beschikbaar in brailleschrift
+      </p>
+    </div>
+    <div class="access-card fade-up">
+      <span class="access-icon" aria-hidden="true">👨‍👩‍👧</span>
+      <h3 class="access-title" data-nl="Gezinsvriendelijk" data-en="Family friendly">Gezinsvriendelijk</h3>
+      <p class="access-desc" data-nl="Groot assortiment voor jong en oud" data-en="Wide range for young and old">
+        Groot assortiment voor jong en oud
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ── REVIEWS ── -->
+<section id="reviews" aria-labelledby="reviews-heading">
+  <p class="section-label" data-nl="Klantenervaringen" data-en="Customer experiences">Klantenervaringen</p>
+  <h2 class="section-heading" id="reviews-heading" data-nl="Wat onze klanten zeggen" data-en="What our customers say">Wat onze klanten zeggen</h2>
+  <div class="reviews-grid" style="margin-top:2rem;">
+    <div class="review-card fade-up">
+      <div class="review-stars" aria-label="4 van 5 sterren">⭐⭐⭐⭐</div>
+      <p class="review-text">"Leuk plekje als je even iets wil drinken of eten na het shoppen. Vriendelijk personeel en aangename sfeer."</p>
+      <span class="review-source">Google</span>
+    </div>
+    <div class="review-card fade-up">
+      <div class="review-stars" aria-label="4 van 5 sterren">⭐⭐⭐⭐</div>
+      <p class="review-text">"Het personeel is geduldig — dat is wat dit restaurant zo goed maakt."</p>
+      <span class="review-source">Restaurant Guru</span>
+    </div>
+    <div class="review-card fade-up">
+      <div class="review-stars" aria-label="4 van 5 sterren">⭐⭐⭐⭐</div>
+      <p class="review-text">"Gezellig café met een ruim assortiment aan zoete en hartige lekkernijen aan democratische prijzen."</p>
+      <span class="review-source">Joyn</span>
+    </div>
+  </div>
+</section>
+
+<!-- ── CONTACT & HOURS ── -->
+<section id="contact" aria-labelledby="contact-heading">
+  <div class="contact-inner">
+    <div class="fade-up">
+      <p class="contact-label" data-nl="Bezoek ons" data-en="Visit us">Bezoek ons</p>
+      <h2 class="contact-heading" id="contact-heading" data-nl="Contact &amp; Openingsuren" data-en="Contact &amp; Opening Hours">Contact &amp; Openingsuren</h2>
+      <ul class="contact-info-list">
+        <li>
+          <i class="fas fa-map-marker-alt ci-icon" aria-hidden="true"></i>
+          <span>Diestsestraat 38, 3000 Leuven</span>
+        </li>
+        <li>
+          <i class="fas fa-phone ci-icon" aria-hidden="true"></i>
+          <a href="tel:+3216223372" style="color:inherit;text-decoration:none;">+32 16 22 33 72</a>
+        </li>
+        <li>
+          <i class="fas fa-clock ci-icon" aria-hidden="true"></i>
+          <span data-nl="Elke dag: 10:00 – 22:00" data-en="Every day: 10:00 – 22:00">Elke dag: 10:00 – 22:00</span>
+        </li>
+        <li>
+          <i class="fas fa-universal-access ci-icon" aria-hidden="true"></i>
+          <span data-nl="Rolstoeltoegankelijk · Braillemenu beschikbaar" data-en="Wheelchair accessible · Braille menu available">Rolstoeltoegankelijk · Braillemenu beschikbaar</span>
+        </li>
+      </ul>
+      <div class="map-wrap">
+        <iframe
+          src="https://www.google.com/maps?q=Diestsestraat+38,+3000+Leuven&output=embed"
+          width="100%"
+          height="300"
+          style="border:0;"
+          allowfullscreen
+          loading="lazy"
+          title="Locatie De Leuvense Memling op Google Maps"
+          aria-label="Google Maps kaart van De Leuvense Memling">
+        </iframe>
+      </div>
+    </div>
+    <div class="fade-up">
+      <h3 class="contact-form-heading" data-nl="Stuur ons een bericht" data-en="Send us a message">Stuur ons een bericht</h3>
+      <form id="contact-form" novalidate>
+        <div class="form-group">
+          <label for="form-name" data-nl="Naam" data-en="Name">Naam</label>
+          <input type="text" id="form-name" name="name" autocomplete="name" required
+            data-placeholder-nl="Uw naam" data-placeholder-en="Your name"
+            placeholder="Uw naam" />
+        </div>
+        <div class="form-group">
+          <label for="form-email" data-nl="Email" data-en="Email">Email</label>
+          <input type="email" id="form-email" name="email" autocomplete="email" required
+            data-placeholder-nl="uw@email.be" data-placeholder-en="your@email.com"
+            placeholder="uw@email.be" />
+        </div>
+        <div class="form-group">
+          <label for="form-message" data-nl="Bericht" data-en="Message">Bericht</label>
+          <textarea id="form-message" name="message" required
+            data-placeholder-nl="Uw bericht..." data-placeholder-en="Your message..."
+            placeholder="Uw bericht..."></textarea>
+        </div>
+        <button type="submit" class="form-submit" data-nl="Verstuur →" data-en="Send →">Verstuur →</button>
+        <div class="form-success" id="form-success" role="alert"
+          data-nl="Bedankt! We antwoorden zo snel mogelijk."
+          data-en="Thanks! We'll get back to you soon.">
+          Bedankt! We antwoorden zo snel mogelijk.
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- ── FOOTER ── -->
+<footer id="footer" role="contentinfo">
+  <div class="footer-inner">
+    <div>
+      <div class="footer-brand">De Leuvense Memling</div>
+      <div class="footer-brand-sub" data-nl="Café · Brasserie · Diestsestraat 38 · Leuven" data-en="Café · Brasserie · Diestsestraat 38 · Leuven">
+        Café · Brasserie · Diestsestraat 38 · Leuven
+      </div>
+    </div>
+    <div class="footer-center">
+      © 2026 &nbsp;·&nbsp; Est. 17e eeuw &nbsp;·&nbsp; 3000 Leuven
+    </div>
+    <div class="footer-links">
+      <a href="https://www.google.com/maps?q=Diestsestraat+38,+3000+Leuven" target="_blank" rel="noopener" aria-label="Bekijk op Google Maps">
+        <i class="fas fa-map-marker-alt" aria-hidden="true"></i> Google Maps
+      </a>
+      <a href="https://www.opcafegaan.be" target="_blank" rel="noopener" aria-label="Bekijk op opcafegaan.be">
+        <i class="fas fa-external-link-alt" aria-hidden="true"></i> opcafegaan.be
+      </a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // ── Language system ──
+  const lang = { current: 'nl' };
+
+  function setLang(l) {
+    lang.current = l;
+    document.documentElement.lang = l;
+    document.getElementById('btn-nl').classList.toggle('active', l === 'nl');
+    document.getElementById('btn-en').classList.toggle('active', l === 'en');
+    document.getElementById('btn-nl').setAttribute('aria-pressed', l === 'nl');
+    document.getElementById('btn-en').setAttribute('aria-pressed', l === 'en');
+
+    document.querySelectorAll('[data-nl],[data-en]').forEach(el => {
+      const val = el.getAttribute('data-' + l);
+      if (val !== null) el.innerHTML = val;
+    });
+
+    // placeholders
+    document.querySelectorAll('[data-placeholder-' + l + ']').forEach(el => {
+      el.placeholder = el.getAttribute('data-placeholder-' + l);
+    });
+  }
+
+  // ── Sticky navbar shadow ──
+  window.addEventListener('scroll', () => {
+    document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 10);
+  }, { passive: true });
+
+  // ── Scroll fade-up animations ──
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.12 });
+
+  document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+  // ── Contact form ──
+  document.getElementById('contact-form').addEventListener('submit', function(e) {
+    e.preventDefault();
+    const successEl = document.getElementById('form-success');
+    successEl.style.display = 'block';
+    successEl.textContent = successEl.getAttribute('data-' + lang.current);
+    this.reset();
+    setTimeout(() => { successEl.style.display = 'none'; }, 5000);
+  });
+</script>
+</body>
+</html>
